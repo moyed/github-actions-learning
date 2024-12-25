@@ -18,7 +18,10 @@ jobs:
           pip install pyyaml
       
       - name: Run Feed Generator
-        run: python feed.py
+        run: |
+          ls
+          pwd
+          python feed.py
       
       - name: Push Repo
         env:
