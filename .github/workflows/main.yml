@@ -1,16 +1,29 @@
 name: Learning Github Action
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+        with:
+          repository: moyed/github-actions-learning
+          ref: main
       
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+      
+      - name: Debug File Structure
+        run: |
+          echo "Listing all files in the repository"
+          ls -R
+          echo "Current directory:"
+          pwd
       
       - name: Install Dependencies
         run: |
@@ -18,10 +31,7 @@ jobs:
           pip install pyyaml
       
       - name: Run Feed Generator
-        run: |
-          ls
-          pwd
-          python feed.py
+        run: python feed.py
       
       - name: Push Repo
         env:
